@@ -1,0 +1,54 @@
+:root {
+    --logo: #c6f14a;
+    --primary: #00aecd;
+    --secondary: #00e8ff;
+    --dark: #454839;
+    --light: #aaad9b;
+    --background: #f8fbe8;
+  }
+  
+  body {
+    background-color: var(--background);
+    color: var(--dark);
+  }
+  
+  .navbar-dark {
+    background-color: var(--dark) !important;
+  }
+  
+  .navbar-brand img {
+    background-color: var(--logo);
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+  }
+  
+  .card {
+    border-color: var(--light);
+  }
+  
+  .card-body {
+    background-color: #ffffff;
+  }
+  
+  .card-img-top {
+    background-color: var(--light);
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  footer {
+    background-color: var(--dark);
+    color: var(--light);
+    padding: 20px 0;
+    margin-top: auto;
+  }
