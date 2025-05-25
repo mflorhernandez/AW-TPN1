@@ -5,50 +5,98 @@
     --dark: #454839;
     --light: #aaad9b;
     --background: #f8fbe8;
-  }
-  
-  body {
+}
+
+body {
     background-color: var(--background);
     color: var(--dark);
-  }
-  
-  .navbar-dark {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.navbar-dark {
     background-color: var(--dark) !important;
-  }
-  
-  .navbar-brand img {
+}
+
+.navbar-brand img {
     background-color: var(--logo);
     padding: 5px;
     border-radius: 5px;
-  }
-  
-  .btn-primary {
+    height: 40px;
+}
+
+.btn-primary {
     background-color: var(--primary);
     border-color: var(--primary);
-  }
-  
-  .btn-primary:hover {
+}
+
+.btn-primary:hover {
     background-color: var(--secondary);
     border-color: var(--secondary);
-  }
-  
-  .card {
+}
+
+.card {
     border-color: var(--light);
-  }
-  
-  .card-body {
+}
+
+.card-body {
     background-color: #ffffff;
-  }
-  
-  .card-img-top {
+}
+
+.card-img-top {
     background-color: var(--light);
     height: 200px;
     object-fit: cover;
-  }
-  
-  footer {
+}
+
+footer {
     background-color: var(--dark);
     color: var(--light);
     padding: 20px 0;
     margin-top: auto;
-  }
+}
+
+main {
+    flex: 1;
+}
+
+.logo-main {
+    max-height: 400px;
+}
+
+/*eliminar flechas del input number */
+input[type="number"] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-group-smaller {
+    max-width: 120px; 
+    margin: 0 auto; 
+}
+
+.input-group-smaller .form-control {
+    padding: 0.2rem 0.3rem; 
+    font-size: 0.85rem; 
+    height: 1.8rem; 
+}
+
+.input-group-smaller .btn {
+    padding: 0.2rem 0.5rem; 
+    font-size: 0.85rem; 
+}
+
+/* Nueva regla para centrar el botón en las cards */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
