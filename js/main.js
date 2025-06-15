@@ -1,6 +1,5 @@
 import { navBar } from "../components/navbar.js";
 import { footerContent } from "../components/footer.js";
-import { cardsData } from "../components/cardsData.js";
 import { createCard } from "../components/cards.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (loginBtn) {
             loginBtn.addEventListener("click", (e) => {
                 e.preventDefault();
-                window.location.href = "/login.html"; // ✅ Ruta absoluta corregida
+                window.location.href = "/login.html";
             });
         }
 
@@ -26,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
             logoutBtn.addEventListener("click", (e) => {
                 e.preventDefault();
                 localStorage.removeItem("loggedIn");
-                window.location.href = "/login.html"; // ✅ Ruta absoluta corregida
+                window.location.href = "/login.html";
             });
         }
     }
@@ -36,39 +35,61 @@ document.addEventListener("DOMContentLoaded", () => {
         footer.innerHTML = footerContent;
     }
 
-    // Renderizar cards según categoría
+    // Cargar productos y renderizar cards
     if (mainContainer) {
-        const path = window.location.pathname;
-        let categoryToShow;
+        fetch(new URL("../data/productos.json", import.meta.url))
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("No se pudo cargar el archivo productos.json");
+                }
+                return response.json();
+            })
+            .then((productos) => {
+                const path = window.location.pathname;
+                let categoryToShow;
 
-        if (path.includes("index.html") || path === "/") {
-            categoryToShow = "Promoción";
-        } else if (path.includes("Hogar.html")) {
-            categoryToShow = "Hogar";
-        } else if (path.includes("Tecnologia.html")) {
-            categoryToShow = "Tecnología";
-        } else if (path.includes("Ropa.html")) {
-            categoryToShow = "Ropa";
-        }
+                if (path.includes("index.html") || path === "/" || path === "/index.html") {
+                    // Mostrar productos en promoción
+                    const productosPromo = productos.filter(p => p.category === "Promoción");
 
-        if (categoryToShow) {
-            const filteredCards = cardsData.filter(card => card.category === categoryToShow);
-            if (filteredCards.length === 0) {
-                console.log(`No se encontraron cards para la categoría: ${categoryToShow}`);
-            }
+                    let row = mainContainer.querySelector(".row");
+                    if (!row) {
+                        row = document.createElement("div");
+                        row.className = "row";
+                        mainContainer.appendChild(row);
+                    }
 
-            let row = mainContainer.querySelector(".row");
-            if (!row) {
-                row = document.createElement("div");
-                row.className = "row";
-                mainContainer.appendChild(row);
-            }
+                    row.innerHTML = productosPromo.map(p => createCard(p)).join("");
+                } else {
+                    // Otras páginas por categoría
+                    if (path.includes("Hogar.html")) {
+                        categoryToShow = "Hogar";
+                    } else if (path.includes("Tecnologia.html")) {
+                        categoryToShow = "Tecnología";
+                    } else if (path.includes("Ropa.html")) {
+                        categoryToShow = "Ropa";
+                    } else if (path.includes("Promocion.html")) {
+                        categoryToShow = "Promoción";
+                    }
 
-            row.innerHTML = filteredCards.map(card => createCard(card)).join("");
-        } else {
-            console.log("No se reconoció la categoría para la página:", path);
-        }
-    } else {
-        console.log("No se encontró el contenedor main .container");
+                    if (categoryToShow) {
+                        const productosCategoria = productos.filter(p => p.category === categoryToShow);
+
+                        let row = mainContainer.querySelector(".row");
+                        if (!row) {
+                            row = document.createElement("div");
+                            row.className = "row";
+                            mainContainer.appendChild(row);
+                        }
+
+                        row.innerHTML = productosCategoria.map(p => createCard(p)).join("");
+                    } else {
+                        console.log("No se reconoció la categoría para la página:", path);
+                    }
+                }
+            })
+            .catch((error) => {
+                console.error("Error al cargar los productos:", error);
+            });
     }
 });

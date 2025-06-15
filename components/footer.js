@@ -1,4 +1,3 @@
-// components/footer.js
 export const footerContent = `
 <footer class="text-center">
     <div class="container">
