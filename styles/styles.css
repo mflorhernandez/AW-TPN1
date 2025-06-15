@@ -54,7 +54,7 @@ footer {
     background-color: var(--dark);
     color: var(--light);
     padding: 20px 0;
-    margin-top: auto;
+    margin-top: 40px;
 }
 
 main {
@@ -64,7 +64,6 @@ main {
 .logo-main {
     max-height: 400px;
 }
-
 
 input[type="number"] {
     -webkit-appearance: none;
@@ -94,10 +93,37 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 0.85rem; 
 }
 
-
 .card-body {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.logo-navbar {
+  height: 40px;
+  width: auto;
+  border-radius: 5px;
+  background-color: var(--logo);
+  padding: 2px;
+}
+
+/* Logo grande en el centro*/
+.logo-navbar-center {
+  max-height: 150px;
+  width: auto;
+  z-index: 1;
+  
+}
+
+/*fuente Hussar Bold */
+@font-face {
+  font-family: 'Hussar Bold';      
+  src: url('/assets/fonts/HussarBold.otf') format('opentype');  
+  font-weight: 700;                
+  font-style: normal;               
+}
+
+/* Aplicar fuente Hussar Bold a todos los h1 */
+h1 {
+  font-family: 'Hussar Bold', sans-serif;
+}
