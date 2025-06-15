@@ -26,12 +26,12 @@ export const navBar = `
       <div class="d-flex align-items-center" id="nav-buttons">
         ${(() => {
           const isLoggedIn = localStorage.getItem("loggedIn");
-          // Filtramos las páginas para mostrar botones (sin "Ropa", "Tecnología", "Hogar")
+       
           const filteredPages = pages.filter(page =>
             page.title !== "Ropa" && page.title !== "Tecnología" && page.title !== "Hogar" &&
             (!page.requiresLogin || (page.requiresLogin && isLoggedIn))
           );
-          // Crear botones excepto Login, Logout y Registro (los vamos a manejar aparte)
+          
           let buttonsHTML = filteredPages
             .filter(page => !["Login", "Logout", "Registro"].includes(page.title))
             .map(page => {
@@ -52,12 +52,12 @@ export const navBar = `
               }
             }
           } else {
-            // No está logueado: mostramos Login (botón verde)
+            // No está logueado: mostramos Login 
             const loginPage = filteredPages.find(p => p.title === "Login");
             if (loginPage) {
               buttonsHTML += `<a type="button" class="btn btn-success me-2" id="login-btn" href="${loginPage.href}">Login</a>`;
             }
-            // También mostramos Registrar como link (sin botón) si está disponible
+            // También mostramos Registrar 
             const registroPage = pages.find(p => p.title === "Registro");
             if (registroPage) {
               buttonsHTML += `<a href="${registroPage.href}" id="registrar-link" style="color: #fff; text-decoration: underline;">Registrarse</a>`;
