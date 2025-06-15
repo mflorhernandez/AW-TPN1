@@ -47,7 +47,7 @@
     "description": "Descubre nuestro producto estrella de la semana con un descuento exclusivo para vestir tus pisos.",
     "price": 69999.99,
     "offerPrice": 49999.99,
-    "image": "../assets/Hogar/alfombra.jpg"
+    "image": "../assets/Hogar/alfombra.png"
   },
   {
     "category": "Promoción",

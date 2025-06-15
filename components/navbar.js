@@ -4,7 +4,7 @@ export const navBar = `
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg position-relative">
   <div class="container-fluid position-relative w-100">
 
-    <!-- Logo izquierdo (el de siempre) -->
+    <!-- Logo izquierdo -->
     <a class="navbar-brand d-flex align-items-center" href="/index.html">
       <img src="/assets/Logo Tienda.png" alt="Logo Falalinda" class="logo-navbar">
     </a>
@@ -45,6 +45,9 @@ export const navBar = `
             .filter(page => !["Login", "Logout", "Registro"].includes(page.title))
             .map(page => {
               let btnClass = "btn btn-light";
+              if (page.title === "Home") {
+                btnClass = "btn btn-home"; // botón para Home
+              }
               return `<a type="button" class="${btnClass} me-2" id="${page.title.toLowerCase()}-btn" href="${page.href}">${page.title}</a>`;
             }).join("");
 
@@ -55,7 +58,7 @@ export const navBar = `
 
               const registroPage = pages.find(p => p.title === "Registro");
               if (registroPage) {
-                buttonsHTML += `<a href="${registroPage.href}" id="registrar-link" style="color: #fff; text-decoration: underline;">Registrarse</a>`;
+                buttonsHTML += `<a href="${registroPage.href}" id="registrar-link" style="color: #fff; text-decoration: underline;">Regístrate</a>`;
               }
             }
           } else {
@@ -66,7 +69,7 @@ export const navBar = `
 
             const registroPage = pages.find(p => p.title === "Registro");
             if (registroPage) {
-              buttonsHTML += `<a href="${registroPage.href}" id="registrar-link" style="color: #fff; text-decoration: underline;">Registrarse</a>`;
+              buttonsHTML += `<a href="${registroPage.href}" id="registrar-link" style="color: #fff; text-decoration: underline;">Regístrate</a>`;
             }
           }
 
