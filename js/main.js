@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (loginBtn) {
             loginBtn.addEventListener("click", (e) => {
                 e.preventDefault();
-                window.location.href = "/login.html";
+                window.location.href = "./login.html";
             });
         }
 
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
             logoutBtn.addEventListener("click", (e) => {
                 e.preventDefault();
                 localStorage.removeItem("loggedIn");
-                window.location.href = "/login.html";
+                window.location.href = "./login.html";
             });
         }
     }
