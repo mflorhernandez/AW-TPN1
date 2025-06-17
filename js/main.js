@@ -1,6 +1,7 @@
 import { navBar } from "../components/navbar.js";
 import { footerContent } from "../components/footer.js";
 import { createCard } from "../components/cards.js";
+import { pages } from "../components/pages.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const header = document.querySelector("header");
@@ -11,22 +12,33 @@ document.addEventListener("DOMContentLoaded", () => {
     if (header) {
         header.innerHTML = navBar;
 
+        const isInCategorias = window.location.pathname.includes("/Categorias/");
+        const prefix = isInCategorias ? "../" : "./";
+
         const loginBtn = document.getElementById("login-btn");
         const logoutBtn = document.getElementById("logout-btn");
 
         if (loginBtn) {
-            loginBtn.addEventListener("click", (e) => {
-                e.preventDefault();
-                window.location.href = "./login.html";
-            });
+            const loginPage = pages.find(p => p.title === "Login");
+            if (loginPage) {
+                loginBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const href = loginPage.href.startsWith("./") ? prefix + loginPage.href.slice(2) : loginPage.href;
+                    window.location.href = href;
+                });
+            }
         }
 
         if (logoutBtn) {
-            logoutBtn.addEventListener("click", (e) => {
-                e.preventDefault();
-                localStorage.removeItem("loggedIn");
-                window.location.href = "./login.html";
-            });
+            const logoutPage = pages.find(p => p.title === "Logout");
+            if (logoutPage) {
+                logoutBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem("loggedIn");
+                    const href = logoutPage.href.startsWith("./") ? prefix + logoutPage.href.slice(2) : logoutPage.href;
+                    window.location.href = href;
+                });
+            }
         }
     }
 
