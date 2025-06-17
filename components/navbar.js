@@ -5,7 +5,7 @@ export const navBar = `
   <div class="container-fluid position-relative w-100">
 
     <!-- Logo izquierdo -->
-    <a class="navbar-brand d-flex align-items-center" href="/index.html">
+    <a class="navbar-brand d-flex align-items-center" href="../index.html">
       <img src="../assets/Logo Tienda.png" alt="Logo Falalinda" class="logo-navbar">
     </a>
 
@@ -27,7 +27,11 @@ export const navBar = `
           <ul class="dropdown-menu">
             ${pages
               .filter(page => page.href.includes("/Categorias/"))
-              .map(page => `<li><a class="dropdown-item" href="${page.href}">${page.title}</a></li>`)
+              .map(page => {
+                const isInCategorias = window.location.pathname.includes("/Categorias/");
+                const href = isInCategorias ? page.href.replace("../", "") : page.href;
+                return `<li><a class="dropdown-item" href="${href}">${page.title}</a></li>`;
+              })
               .join("")}
           </ul>
         </li>
@@ -35,6 +39,8 @@ export const navBar = `
       <div class="d-flex align-items-center" id="nav-buttons">
         ${(() => {
           const isLoggedIn = localStorage.getItem("loggedIn");
+          const isInCategorias = window.location.pathname.includes("/Categorias/");
+          const prefix = isInCategorias ? "../" : "./";
 
           const filteredPages = pages.filter(page =>
             page.title !== "Ropa" && page.title !== "Tecnología" && page.title !== "Hogar" &&
@@ -48,28 +54,33 @@ export const navBar = `
               if (page.title === "Home") {
                 btnClass = "btn btn-home";
               }
-              return `<a type="button" class="${btnClass} me-2" id="${page.title.toLowerCase()}-btn" href="${page.href}">${page.title}</a>`;
+              const href = page.href.startsWith("./") ? prefix + page.href.slice(2) : page.href;
+              return `<a type="button" class="${btnClass} me-2" id="${page.title.toLowerCase()}-btn" href="${href}">${page.title}</a>`;
             }).join("");
 
           if (isLoggedIn) {
             const logoutPage = filteredPages.find(p => p.title === "Logout");
             if (logoutPage) {
-              buttonsHTML += `<a type="button" class="btn btn-danger me-2" id="logout-btn" href="${logoutPage.href}">Logout</a>`;
+              const href = logoutPage.href.startsWith("./") ? prefix + logoutPage.href.slice(2) : logoutPage.href;
+              buttonsHTML += `<a type="button" class="btn btn-danger me-2" id="logout-btn" href="${href}">Logout</a>`;
 
               const registroPage = pages.find(p => p.title === "Registro");
               if (registroPage) {
-                buttonsHTML += `<a href="${registroPage.href}" id="registrar-link" style="color: #fff; text-decoration: underline;">Regístrate</a>`;
+                const regHref = registroPage.href.startsWith("./") ? prefix + registroPage.href.slice(2) : registroPage.href;
+                buttonsHTML += `<a href="${regHref}" id="registrar-link" style="color: #fff; text-decoration: underline;">Regístrate</a>`;
               }
             }
           } else {
             const loginPage = filteredPages.find(p => p.title === "Login");
             if (loginPage) {
-              buttonsHTML += `<a type="button" class="btn btn-success me-2" id="login-btn" href="${loginPage.href}">Login</a>`;
+              const href = loginPage.href.startsWith("./") ? prefix + loginPage.href.slice(2) : loginPage.href;
+              buttonsHTML += `<a type="button" class="btn btn-success me-2" id="login-btn" href="${href}">Login</a>`;
             }
 
             const registroPage = pages.find(p => p.title === "Registro");
             if (registroPage) {
-              buttonsHTML += `<a href="${registroPage.href}" id="registrar-link" style="color: #fff; text-decoration: underline;">Regístrate</a>`;
+              const regHref = registroPage.href.startsWith("./") ? prefix + registroPage.href.slice(2) : registroPage.href;
+              buttonsHTML += `<a href="${regHref}" id="registrar-link" style="color: #fff; text-decoration: underline;">Regístrate</a>`;
             }
           }
 
