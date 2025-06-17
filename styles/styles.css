@@ -42,6 +42,9 @@ body {
 
 .card-body {
     background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .card-img-top {
@@ -59,6 +62,7 @@ footer {
 
 main {
     flex: 1;
+    margin-top: 3rem; /* Agregado para separar el main del navbar */
 }
 
 .logo-main {
@@ -93,89 +97,81 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 0.85rem; 
 }
 
-.card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .logo-navbar {
-  height: 40px;
-  width: auto;
-  border-radius: 5px;
-  background-color: var(--logo);
-  padding: 2px;
+    height: 40px;
+    width: auto;
+    border-radius: 5px;
+    background-color: var(--logo);
+    padding: 2px;
 }
 
-/* Logo grande en el centro*/
+/* Logo grande en el centro */
 .logo-navbar-center {
-  max-height: 150px;
-  width: auto;
-  z-index: 1;
-  
+    max-height: 150px;
+    width: auto;
+    z-index: 1;
 }
 
-/*fuente Hussar Bold */
+/* Fuente Hussar Bold */
 @font-face {
-  font-family: 'Hussar Bold';      
-  src: url('/assets/fonts/HussarBold.otf') format('opentype');  
-  font-weight: 700;                
-  font-style: normal;               
+    font-family: 'Hussar Bold';      
+    src: url('/assets/fonts/HussarBold.otf') format('opentype');  
+    font-weight: 700;                
+    font-style: normal;               
 }
 
 /* Aplicar fuente Hussar Bold a todos los h1 */
 h1 {
-  font-family: 'Hussar Bold', sans-serif;
+    font-family: 'Hussar Bold', sans-serif;
 }
 
 .chatbot-girl {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 140px; 
-  text-align: center;
-  z-index: 1000;
-  font-family: 'Hussar Bold', sans-serif;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 140px; 
+    text-align: center;
+    z-index: 1000;
+    font-family: 'Hussar Bold', sans-serif;
 }
 
 .chatbot-girl img {
-  width: 100%;
-  height: auto;
-  display: block;
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .chatbot-bubble {
-  background-color: var(--primary);
-  color: white;
-  padding: 8px 12px;
-  border-radius: 20px;
-  margin-top: 6px;
-  font-size: 0.85rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  animation: aparecer 1s ease-in-out;
+    background-color: var(--primary);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    margin-top: 6px;
+    font-size: 0.85rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    animation: aparecer 1s ease-in-out;
 }
 
-
 @keyframes aparecer {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .btn-home {
-  background-color: var(--logo);
-  border: 2px solid var(--logo);
-  color: #000;
-  font-weight: bold;
+    background-color: var(--logo);
+    border: 2px solid var(--logo);
+    color: #000;
+    font-weight: bold;
 }
 
 .btn-home:hover {
-  background-color: #d4f869;
-  border-color: #d4f869;
-  color: #000;
+    background-color: #d4f869;
+    border-color: #d4f869;
+    color: #000;
 }
