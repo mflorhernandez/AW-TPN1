@@ -6,11 +6,11 @@ export const navBar = `
 
     <!-- Logo izquierdo -->
     <a class="navbar-brand d-flex align-items-center" href="/index.html">
-      <img src="./assets/Logo Tienda.png" alt="Logo Falalinda" class="logo-navbar">
+      <img src="../assets/Logo Tienda.png" alt="Logo Falalinda" class="logo-navbar">
     </a>
 
     <!-- Logo grande centrado -->
-    <img src="./assets/logo grande.png" alt="Logo grande Falalinda"
+    <img src="../assets/logo grande.png" alt="Logo grande Falalinda"
          class="logo-navbar-center position-absolute top-50 start-50 translate-middle">
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
@@ -46,7 +46,7 @@ export const navBar = `
             .map(page => {
               let btnClass = "btn btn-light";
               if (page.title === "Home") {
-                btnClass = "btn btn-home"; // botón para Home
+                btnClass = "btn btn-home";
               }
               return `<a type="button" class="${btnClass} me-2" id="${page.title.toLowerCase()}-btn" href="${page.href}">${page.title}</a>`;
             }).join("");

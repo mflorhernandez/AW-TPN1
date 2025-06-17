@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const path = window.location.pathname;
                 let categoryToShow;
 
-                if (path.includes("index.html") || path === "/" || path === "/index.html") {
+                if (path.includes("index.html") || path === "/" || path === "./index.html") {
                     // Mostrar productos en promoción
                     const productosPromo = productos.filter(p => p.category === "Promoción");
 
