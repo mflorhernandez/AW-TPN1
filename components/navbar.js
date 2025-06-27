@@ -3,13 +3,10 @@ import { pages } from "./pages.js";
 export const navBar = `
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg position-relative">
   <div class="container-fluid position-relative w-100">
-
-    <!-- Logo izquierdo -->
     <a class="navbar-brand d-flex align-items-center" href="../index.html">
       <img src="../assets/Logo Tienda.png" alt="Logo Falalinda" class="logo-navbar">
     </a>
 
-    <!-- Logo grande centrado -->
     <img src="../assets/logo grande.png" alt="Logo grande Falalinda"
          class="logo-navbar-center position-absolute top-50 start-50 translate-middle">
 
@@ -36,42 +33,49 @@ export const navBar = `
           </ul>
         </li>
       </ul>
+
       <div class="d-flex align-items-center" id="nav-buttons">
         ${(() => {
-          const isLoggedIn = localStorage.getItem("loggedIn");
+          const usuario = JSON.parse(sessionStorage.getItem("usuarioLogueado"));
           const isInCategorias = window.location.pathname.includes("/Categorias/");
           const prefix = isInCategorias ? "../" : "./";
 
           const filteredPages = pages.filter(page =>
-            page.title !== "Ropa" && page.title !== "Tecnología" && page.title !== "Hogar" &&
-            (!page.requiresLogin || (page.requiresLogin && isLoggedIn))
+            page.title !== "Ropa" && page.title !== "Tecnología" && page.title !== "Hogar"
           );
 
           let buttonsHTML = filteredPages
             .filter(page => !["Login", "Logout", "Registro"].includes(page.title))
             .map(page => {
               let btnClass = "btn btn-light";
-              if (page.title === "Home") {
-                btnClass = "btn btn-home";
-              }
+              if (page.title === "Home") btnClass = "btn btn-home";
               const href = page.href.startsWith("./") ? prefix + page.href.slice(2) : page.href;
               return `<a type="button" class="${btnClass} me-2" id="${page.title.toLowerCase()}-btn" href="${href}">${page.title}</a>`;
             }).join("");
 
-          if (isLoggedIn) {
-            const logoutPage = filteredPages.find(p => p.title === "Logout");
+          if (usuario) {
+            // Mostrar saludo
+            buttonsHTML += `<span class="text-white me-2" id="user-greeting">Hola, ${usuario.nombre}</span>`;
+
+            // Carrito a la derecha del saludo
+            buttonsHTML += `
+              <a href="${prefix}carrito.html" id="carrito-link" title="Ver carrito">
+                <img src="${prefix}assets/carrito.ico" alt="Carrito" style="width:24px; height:24px;">
+              </a>
+            `;
+
+            // Botón Logout
+            const logoutPage = pages.find(p => p.title === "Logout");
             if (logoutPage) {
               const href = logoutPage.href.startsWith("./") ? prefix + logoutPage.href.slice(2) : logoutPage.href;
-              buttonsHTML += `<a type="button" class="btn btn-danger me-2" id="logout-btn" href="${href}">Logout</a>`;
-
-              const registroPage = pages.find(p => p.title === "Registro");
-              if (registroPage) {
-                const regHref = registroPage.href.startsWith("./") ? prefix + registroPage.href.slice(2) : registroPage.href;
-                buttonsHTML += `<a href="${regHref}" id="registrar-link" style="color: #fff; text-decoration: underline;">Regístrate</a>`;
-              }
+              buttonsHTML += `<a type="button" class="btn btn-danger ms-3" id="logout-btn" href="${href}">Logout</a>`;
             }
+
+            // No mostrar link registro
           } else {
-            const loginPage = filteredPages.find(p => p.title === "Login");
+            // Usuario no logueado: Login y Registro
+
+            const loginPage = pages.find(p => p.title === "Login");
             if (loginPage) {
               const href = loginPage.href.startsWith("./") ? prefix + loginPage.href.slice(2) : loginPage.href;
               buttonsHTML += `<a type="button" class="btn btn-success me-2" id="login-btn" href="${href}">Login</a>`;
@@ -80,7 +84,7 @@ export const navBar = `
             const registroPage = pages.find(p => p.title === "Registro");
             if (registroPage) {
               const regHref = registroPage.href.startsWith("./") ? prefix + registroPage.href.slice(2) : registroPage.href;
-              buttonsHTML += `<a href="${regHref}" id="registrar-link" style="color: #fff; text-decoration: underline;">Regístrate</a>`;
+              buttonsHTML += `<a href="${regHref}" id="registrar-link" class="text-white text-decoration-underline">Regístrate</a>`;
             }
           }
 

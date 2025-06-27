@@ -30,15 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (logoutBtn) {
-            const logoutPage = pages.find(p => p.title === "Logout");
-            if (logoutPage) {
-                logoutBtn.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    localStorage.removeItem("loggedIn");
-                    const href = logoutPage.href.startsWith("./") ? prefix + logoutPage.href.slice(2) : logoutPage.href;
-                    window.location.href = href;
-                });
-            }
+            logoutBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                sessionStorage.removeItem("usuarioLogueado"); // ✅ Cierra sesión
+                window.location.href = "./login.html"; // ✅ Redirige a login y se actualiza navbar
+            });
         }
     }
 
@@ -105,3 +101,4 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 });
+    

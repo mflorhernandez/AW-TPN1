@@ -12,7 +12,7 @@
   <main class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="login-container border rounded p-4 shadow-sm" style="max-width: 400px; width: 100%;">
       <h1 class="text-center mb-4">Iniciar Sesión</h1>
-      <form action="#" method="POST">
+      <form id="loginForm" action="#" method="POST">
         <div class="mb-3">
           <label for="email" class="form-label">Correo Electrónico:</label>
           <input type="email" class="form-control" id="email" name="email" required>
@@ -29,12 +29,6 @@
   <footer></footer>
 
   <script type="module" src="./js/main.js"></script>
-  <script>
-    document.querySelector("form").addEventListener("submit", function(e) {
-      e.preventDefault();
-      localStorage.setItem("loggedIn", "true");
-      window.location.href = "./index.html";
-    });
-  </script>
+  <script src="./js/login.js"></script>
 </body>
 </html>

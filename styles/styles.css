@@ -175,3 +175,28 @@ h1 {
     border-color: #d4f869;
     color: #000;
 }
+
+#carrito-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+#carrito-link:hover,
+#carrito-link:focus {
+  background-color: var(--primary);
+  outline: none;
+}
+
+#carrito-link img {
+  filter: brightness(0) invert(1); /* Ícono blanco para navbar oscuro */
+  transition: filter 0.3s ease;
+}
+
+#carrito-link:hover img,
+#carrito-link:focus img {
+  filter: brightness(0) invert(0.7) sepia(1) saturate(5) hue-rotate(180deg);
+}
