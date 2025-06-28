@@ -32,8 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (logoutBtn) {
             logoutBtn.addEventListener("click", (e) => {
                 e.preventDefault();
-                sessionStorage.removeItem("usuarioLogueado"); // ✅ Cierra sesión
-                window.location.href = "./login.html"; // ✅ Redirige a login y se actualiza navbar
+                sessionStorage.removeItem("usuarioLogueado");
+                window.location.href = "./login.html";
             });
         }
     }
@@ -57,7 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 let categoryToShow;
 
                 if (path.includes("index.html") || path === "/" || path === "./index.html") {
-                    // Mostrar productos en promoción
                     const productosPromo = productos.filter(p => p.category === "Promoción");
 
                     let row = mainContainer.querySelector(".row");
@@ -69,16 +68,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     row.innerHTML = productosPromo.map(p => createCard(p)).join("");
                 } else {
-                    // Otras páginas por categoría
-                    if (path.includes("Hogar.html")) {
-                        categoryToShow = "Hogar";
-                    } else if (path.includes("Tecnologia.html")) {
-                        categoryToShow = "Tecnología";
-                    } else if (path.includes("Ropa.html")) {
-                        categoryToShow = "Ropa";
-                    } else if (path.includes("Promocion.html")) {
-                        categoryToShow = "Promoción";
-                    }
+                    if (path.includes("Hogar.html")) categoryToShow = "Hogar";
+                    else if (path.includes("Tecnologia.html")) categoryToShow = "Tecnología";
+                    else if (path.includes("Ropa.html")) categoryToShow = "Ropa";
+                    else if (path.includes("Promocion.html")) categoryToShow = "Promoción";
 
                     if (categoryToShow) {
                         const productosCategoria = productos.filter(p => p.category === categoryToShow);
@@ -91,14 +84,40 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
 
                         row.innerHTML = productosCategoria.map(p => createCard(p)).join("");
-                    } else {
-                        console.log("No se reconoció la categoría para la página:", path);
                     }
                 }
             })
-            .catch((error) => {
-                console.error("Error al cargar los productos:", error);
-            });
+            .catch((error) => console.error("Error al cargar los productos:", error));
     }
+
+    // Lógica para agregar al carrito
+    document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("add-to-cart-btn")) {
+            const btn = e.target;
+            const card = btn.closest(".card-body");
+            const quantityInput = card.querySelector(".quantity-input");
+            const quantity = parseInt(quantityInput.value);
+
+            const product = {
+                title: btn.dataset.title,
+                description: btn.dataset.description,
+                price: parseFloat(btn.dataset.price),
+                offerPrice: btn.dataset.offerprice ? parseFloat(btn.dataset.offerprice) : null,
+                image: btn.dataset.image,
+                quantity: quantity
+            };
+
+            let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+            const existente = carrito.find(p => p.title === product.title);
+            if (existente) {
+                existente.quantity += quantity;
+            } else {
+                carrito.push(product);
+            }
+
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+            alert("Producto agregado al carrito");
+        }
+    });
 });
-    

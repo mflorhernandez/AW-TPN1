@@ -14,10 +14,16 @@ export const createCard = ({ title, description, price, offerPrice, image }) => 
                 </p>
                 <div class="input-group input-group-smaller mb-3">
                     <button class="btn btn-outline-secondary" type="button" onclick="this.nextElementSibling.stepDown()">-</button>
-                    <input type="number" class="form-control text-center" value="1" min="1">
+                    <input type="number" class="form-control text-center quantity-input" value="1" min="1">
                     <button class="btn btn-outline-secondary" type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                 </div>
-                <button class="btn btn-primary">${offerPrice ? "Aprovechar Oferta" : "Agregar"}</button>
+                <button class="btn btn-primary add-to-cart-btn"
+                    data-title="${title}"
+                    data-description="${description}"
+                    data-price="${price}"
+                    data-offerprice="${offerPrice || ''}"
+                    data-image="${image}"
+                >${offerPrice ? "Aprovechar Oferta" : "Agregar"}</button>
             </div>
         </div>
     </div>
