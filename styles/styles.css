@@ -200,3 +200,41 @@ h1 {
 #carrito-link:focus img {
   filter: brightness(0) invert(0.7) sepia(1) saturate(5) hue-rotate(180deg);
 }
+
+.carrito-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f5f5f5;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.carrito-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.carrito-info {
+  flex-grow: 1;
+  margin-left: 12px;
+}
+
+.carrito-info h5 {
+  margin-bottom: 4px;
+}
+
+.carrito-controles {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.carrito-controles input {
+  width: 50px;
+  text-align: center;
+}
