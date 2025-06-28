@@ -54,10 +54,10 @@ export const navBar = `
             }).join("");
 
           if (usuario) {
-            // Mostrar saludo
+            // Mostrar nombre en el navbar
             buttonsHTML += `<span class="text-white me-2" id="user-greeting">Hola, ${usuario.nombre}</span>`;
 
-            // Carrito a la derecha del saludo
+            // Carrito 
             buttonsHTML += `
               <a href="${prefix}carrito.html" id="carrito-link" title="Ver carrito">
                 <img src="${prefix}assets/carrito.ico" alt="Carrito" style="width:24px; height:24px;">

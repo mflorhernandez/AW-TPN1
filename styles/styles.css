@@ -62,7 +62,7 @@ footer {
 
 main {
     flex: 1;
-    margin-top: 3rem; /* Agregado para separar el main del navbar */
+    margin-top: 3rem; 
 }
 
 .logo-main {
@@ -192,7 +192,7 @@ h1 {
 }
 
 #carrito-link img {
-  filter: brightness(0) invert(1); /* Ícono blanco para navbar oscuro */
+  filter: brightness(0) invert(1); 
   transition: filter 0.3s ease;
 }
 

@@ -1,14 +1,13 @@
 import { navBar } from "../components/navbar.js";
 import { footerContent } from "../components/footer.js";
 
-// Inyectar navbar y footer
 document.querySelector("header").innerHTML = navBar;
 document.querySelector("footer").innerHTML = footerContent;
 
 // Lógica del carrito
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-// Normalizar cantidades en caso de que no existan
+
 carrito.forEach(p => {
   if (!p.quantity) p.quantity = 1;
 });
