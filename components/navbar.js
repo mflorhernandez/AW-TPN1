@@ -23,10 +23,14 @@ export const navBar = `
           </a>
           <ul class="dropdown-menu">
             ${pages
-              .filter(page => page.href.includes("/Categorias/"))
+              .filter(page => page.isCategory)
               .map(page => {
-                const isInCategorias = window.location.pathname.includes("/Categorias/");
-                const href = isInCategorias ? page.href.replace("../", "") : page.href;
+                const pathParts = window.location.pathname.split("/").filter(p => p !== "");
+                const depth = pathParts.length - 1;
+                const prefix = "../".repeat(depth);
+                const href = page.href.startsWith("../")
+                  ? prefix + page.href.replace("../", "")
+                  : page.href;
                 return `<li><a class="dropdown-item" href="${href}">${page.title}</a></li>`;
               })
               .join("")}
@@ -37,11 +41,12 @@ export const navBar = `
       <div class="d-flex align-items-center" id="nav-buttons">
         ${(() => {
           const usuario = JSON.parse(sessionStorage.getItem("usuarioLogueado"));
-          const isInCategorias = window.location.pathname.includes("/Categorias/");
-          const prefix = isInCategorias ? "../" : "./";
+          const pathParts = window.location.pathname.split("/").filter(p => p !== "");
+          const depth = pathParts.length - 1;
+          const prefix = "../".repeat(depth);
 
           const filteredPages = pages.filter(page =>
-            page.title !== "Ropa" && page.title !== "Tecnología" && page.title !== "Hogar"
+            !["Ropa", "Tecnología", "Hogar"].includes(page.title)
           );
 
           let buttonsHTML = filteredPages
@@ -49,41 +54,44 @@ export const navBar = `
             .map(page => {
               let btnClass = "btn btn-light";
               if (page.title === "Home") btnClass = "btn btn-home";
-              const href = page.href.startsWith("./") ? prefix + page.href.slice(2) : page.href;
+              const href = page.href.startsWith("./")
+                ? prefix + page.href.slice(2)
+                : prefix + page.href.replace("../", "");
               return `<a type="button" class="${btnClass} me-2" id="${page.title.toLowerCase()}-btn" href="${href}">${page.title}</a>`;
-            }).join("");
+            })
+            .join("");
 
           if (usuario) {
-            // Mostrar nombre en el navbar
             buttonsHTML += `<span class="text-white me-2" id="user-greeting">Hola, ${usuario.nombre}</span>`;
 
-            // Carrito 
             buttonsHTML += `
               <a href="${prefix}carrito.html" id="carrito-link" title="Ver carrito">
                 <img src="${prefix}assets/carrito.ico" alt="Carrito" style="width:24px; height:24px;">
               </a>
             `;
 
-            // Botón Logout
             const logoutPage = pages.find(p => p.title === "Logout");
             if (logoutPage) {
-              const href = logoutPage.href.startsWith("./") ? prefix + logoutPage.href.slice(2) : logoutPage.href;
+              const href = logoutPage.href.startsWith("./")
+                ? prefix + logoutPage.href.slice(2)
+                : prefix + logoutPage.href.replace("../", "");
               buttonsHTML += `<a type="button" class="btn btn-danger ms-3" id="logout-btn" href="${href}">Logout</a>`;
             }
 
-            // No mostrar link registro
           } else {
-            // Usuario no logueado: Login y Registro
-
             const loginPage = pages.find(p => p.title === "Login");
             if (loginPage) {
-              const href = loginPage.href.startsWith("./") ? prefix + loginPage.href.slice(2) : loginPage.href;
+              const href = loginPage.href.startsWith("./")
+                ? prefix + loginPage.href.slice(2)
+                : prefix + loginPage.href.replace("../", "");
               buttonsHTML += `<a type="button" class="btn btn-success me-2" id="login-btn" href="${href}">Login</a>`;
             }
 
             const registroPage = pages.find(p => p.title === "Registro");
             if (registroPage) {
-              const regHref = registroPage.href.startsWith("./") ? prefix + registroPage.href.slice(2) : registroPage.href;
+              const regHref = registroPage.href.startsWith("./")
+                ? prefix + registroPage.href.slice(2)
+                : prefix + registroPage.href.replace("../", "");
               buttonsHTML += `<a href="${regHref}" id="registrar-link" class="text-white text-decoration-underline">Regístrate</a>`;
             }
           }
@@ -95,3 +103,4 @@ export const navBar = `
   </div>
 </nav>
 `;
+
